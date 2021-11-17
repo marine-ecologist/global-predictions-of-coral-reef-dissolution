@@ -1,24 +1,15 @@
 rm(list = ls())
 
 
-# Jez note - check to see if all packages are relevant
-
-#BiocManager::install("variancePartition")
-library(variancePartition) # missing
-library(openxlsx)
-library(tibble)
 library(tidyverse)
-library(lme4)
-library(lmerTest)
+library(openxlsx)
+library(tidyxl)
 library(ggplot2)
 library(emmeans)
-library(sjPlot)
-library(MuMIn)
 library(car)
-library(tidyxl)
+library(MuMIn)
+library(lme4)
 library(DHARMa)
-library(visdat) # missing
-library(partR2) # missing
 
 
 ### Davis et al (2021) Communications Earth & Environment Volume 2, Article number: 105 (https://www.nature.com/articles/s43247-021-00168)
@@ -34,10 +25,9 @@ library(partR2) # missing
 #  a) data file from Communications Earth & Environment (Supplementary Data 1) ------ https://static-content.springer.com/esm/art%3A10.1038%2Fs43247-021-00168-w/MediaObjects/43247_2021_168_MOESM3_ESM.xlsx
 #  b) data file from SEANOE (DOI: 10.17882/80022) ----------------------------------- https://www.seanoe.org/data/00688/80022/data/83009.xlsx
 
-data <- read.xlsx("https://www.seanoe.org/data/00688/80022/data/83009.xlsx") # replace throughout
-data <- read.xlsx("~/Dropbox/Data - Carbonate R Package/caRb/43247_2021_168_MOESM3_ESM.xlsx") 
-formats <- xlsx_formats( "~/Dropbox/Data - Carbonate R Package/caRb/43247_2021_168_MOESM3_ESM.xlsx" )
-cells <- xlsx_cells( "~/Dropbox/Data - Carbonate R Package/caRb/43247_2021_168_MOESM3_ESM.xlsx" )
+data <- read.xlsx("43247_2021_168_MOESM3_ESM.xlsx") 
+formats <- xlsx_formats( "43247_2021_168_MOESM3_ESM.xlsx" )
+cells <- xlsx_cells( "43247_2021_168_MOESM3_ESM.xlsx" )
 
 # 2) extract colours for key from the first row of the xlsx file
 figure3cols <- cells[cells$local_format_id %in% which(formats$local$fill$patternFill$fgColor$rgb == "FFFFC000"), "row"] %>% distinct %>%as.data.frame()
@@ -59,7 +49,7 @@ data <- data %>% select("Short Reference", "Location", "Year Studied", "row", "H
                         "% calcifiers", "Gnet" =  "Gnet (mmol m-2 d-1)", "Pnet" = "Pnet (mmol m-2 d-1)",  "Pnet error",
                         "Night_d" = "Net dissolution at Night? (study average)", "Night" = "Night measured?", "Aragonite" = "avg Ωarag", "Duration" = "Duration (days)", 
                         "Season" = "Heat Type", "Year" = "Year Studied", "Wave" = "Wave Action",
-                        "Temp" = "Temp avg", "TempStd" = "Temp Stdev",  "Gnet.error" = "Gnet error", "Pnet.error" = "Pnet error",) %>%
+                        "Temp" = "Temp avg", "TempStd" = "Temp Stdev",  "Gnet.error" = "Gnet error", "Pnet.error" = "Pnet error") %>%
                  slice(3:118) %>% 
                 #filter(!Season == "A") %>%
                  replace_na(list(Health = "H")) %>% 
@@ -122,7 +112,7 @@ ggplot() + theme_bw() + # linear predictions with 95% CI
   geom_errorbar(data=fig4subset, aes(x=Year, ymin=Gnet-Gnet.error, ymax=Gnet+Gnet.error)) + 
   geom_line(data=preds, aes(x=Year, y=emmean)) +
   geom_ribbon(data=preds, aes(x=Year, ymin=lower.CL, max=upper.CL), alpha=0.2) +
-  geom_vline(xintercept = 2054) + coord_cartesian(ylim = c(0, 400), xlim = c(1970, 2170))
+  geom_vline(xintercept = 2054) + coord_cartesian(ylim = c(0, 300), xlim = c(1970, 2170))
   
 # 8) Plot global changes in coral reef ecosystem calcification (Gnet) over time from subset data (Figure 1 in Wolfe & Roff (2021))
 
@@ -143,17 +133,36 @@ ggplot() + theme_bw() + facet_wrap(~Location) + xlim(1970,2020) +
   geom_point(data=fig4subset %>% filter(Season=="H") %>% filter(Wave=="E"), aes(x=Year, y=Gnet), fill="red", shape=22, size=3, show.legend=TRUE)
   
 
-
-### Kenny - see below
-
-fm1.lizard.full <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Lizard Island, GBR"))
-Anova(fm1.lizard.full)
-r.squaredGLMM(fm1.lizard.full)
-
-fm1.lizard <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Lizard Island, GBR") %>% filter(Year > 2000))
-Anova(fm1.lizard)
+#Lizard Island GBR
+fm1.lizard <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Lizard Island, GBR"))
+Anova(fm1.lizard) 
 r.squaredGLMM(fm1.lizard)
 
+fm1.lizard.coral <- lm(Coral ~ Year, data=fig4subset %>% filter(Location=="Lizard Island, GBR"))
+Anova(fm1.lizard.coral) 
+r.squaredGLMM(fm1.lizard.coral)
+
+#One Tree Island GBR
 fm1.onetree <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="One Tree Island GBR"))
-Anova(fm1.lizard)
+Anova(fm1.onetree) #n/s
 r.squaredGLMM(fm1.onetree)
+
+#Kanehoe Bay Hawaii
+fm1.kanehoe <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Kanehoe Bay Hawaii"))
+Anova(fm1.kanehoe) #n/s
+r.squaredGLMM(fm1.kanehoe)
+
+#Shiraho Reef, Japan
+fm1.shiraho <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Shiraho Reef, Japan"))
+Anova(fm1.shiraho) #n/s
+r.squaredGLMM(fm1.shiraho)
+
+#Palau
+fm1.palau <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Palau"))
+Anova(fm1.palau) #n/s
+r.squaredGLMM(fm1.palau)
+
+#Davies Reef GBR
+fm1.davies <- lm(Gnet ~ Year, data=fig4subset %>% filter(Location=="Davies Reef GBR"))
+Anova(fm1.davies) #n/s
+r.squaredGLMM(fm1.davies)
