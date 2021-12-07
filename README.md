@@ -14,8 +14,9 @@ Through a meta-analysis approach, the recent study in Communications Earth & Env
 
 Under future projections, ocean acidification is expected to shift coral reefs from a state of net calcification to net dissolution through reductions in pH and aragonite saturation states (Ωa)<sup>4,5</sup>. The exact timing of this is unclear, in part due to methodological differences, but estimates of when coral reefs will cross a tipping point to net dissolution vary substantially from 2031–2082<sup>6</sup>, 2070<sup>7</sup> and 2060–2080<sup>4</sup>. Through compilation of Gnet from a subset of sites with repeated measurements (6 of the 36 available coral reefs; n = 29 of the available 116 surveys), Davis, et al.<sup>3</sup> extrapolate linear predictions of Gnet decline (1975–2017) to conclude that average global net-zero calcification will occur around the year 2054, based on a decline in Gnet of 4.3 ± 1.9% yr-1. 
 
+<p align="center">
 <img width="809" alt="Figure 1" src="https://user-images.githubusercontent.com/93563980/145122889-669d85ef-8fc7-4630-943d-78e6fdfd3e0e.png">
-
+</p>
 
 Extrapolating estimates of Gnet into the 21st century based upon the available historical data is complex. We identify four issues with this approach: 
 
@@ -27,7 +28,9 @@ Extrapolating estimates of Gnet into the 21st century based upon the available h
 
 4) **Historical and contemporary patterns of Gnet.** In assessing changes in biogeochemical processes on coral reefs, historical datasets represent a critical baseline with which to assess recent change. The inclusion of an early study from Kaneohe Bay, Hawaii, complicates the analysis. Kinsey<sup>13</sup> noted his data were ‘sparse and somewhat erratic’, that values of Gnet were not weighted across seasons, and that values were over-represented by sampling in September when near-maximum metabolic rates occur (see footnote Table 38)<sup>13</sup>. Thus, the value of Gnet of 241 mmol m-2 d-1 in 1976 (Fig. 1a) from Kinsey<sup>13</sup>, which was used to benchmark a 40¬–43% decline in Gnet between 1976–2009, is likely to be an overestimate. While historical datasets can be paired with contemporary studies at the scale of individual reefs, exact locations within reefs also vary. For example, historical measurements at Davies Reef in 1981 were conducted on the reef flat ~60 m from the windward margin<sup>14</sup>, whereas contemporary measurements were conducted on the protected (lagoonal) side of the reef flat<sup>15</sup>, some 300 m from the windward margin. Similarly, while the four studies (n = 7 surveys) from Lizard Island, Great Barrier Reef (1975–2019), were conducted on the same reef flat, they were situated > 1 km apart<sup>16,17</sup>. Spatial and temporal differences in environmental parameters (tides, depth, waves) and benthic structure (coral cover, seasonal algal blooms) confound paired measurements of Gnet between historical and contemporary studies, and further complicate accurate future predictions. 
 
+<p align="center">
 <img width="809" alt="Table 1" src="https://user-images.githubusercontent.com/93563980/145122870-fd9823ee-0027-4fee-8dfa-31a639be1675.png">
+</p>
 
 ### **Conclusions**
 
